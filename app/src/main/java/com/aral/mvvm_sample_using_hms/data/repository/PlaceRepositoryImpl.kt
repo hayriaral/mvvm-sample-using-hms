@@ -17,7 +17,7 @@ class PlaceRepositoryImpl : PlaceRepository {
     private val placesLiveData = MutableLiveData<List<Place>>()
 
     private fun convertToPlace(site: Site) {
-        var place = Place()
+        val place = Place()
         place.siteId = site.getSiteId()
         place.address = site.getFormatAddress()
         place.addressDetail = site.getAddress()
