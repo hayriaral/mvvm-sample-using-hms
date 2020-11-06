@@ -1,5 +1,6 @@
 package com.aral.mvvm_sample_using_hms.viewmodel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import com.aral.mvvm_sample_using_hms.data.model.Place
@@ -9,18 +10,23 @@ import com.aral.mvvm_sample_using_hms.util.Constant
 
 class MainViewModel(private val repository: PlaceRepository = PlaceRepositoryImpl()) : ViewModel() {
 
-    private val allPlaces = MediatorLiveData<List<Place>>()
+//    private val allPlaces = MediatorLiveData<List<Place>>()
 
-    init {
-        getAllPlaces()
-    }
+//    init {
+//        getAllPlaces()
+//    }
 
-    fun getCurrentPlaces() = allPlaces
+//    fun getCurrentPlaces() = allPlaces
 
-    private fun getAllPlaces() {
-        repository.searchNearbyPlace(Constant.mockDataLat, Constant.mockDataLng)
-        allPlaces.addSource(repository.getPlaces()) { places ->
-            allPlaces.postValue(places)
-        }
+//    private fun getAllPlaces() {
+//        repository.searchNearbyPlace(Constant.mockDataLat, Constant.mockDataLng)
+//        allPlaces.addSource(repository.getPlaces()) { places ->
+//            allPlaces.postValue(places)
+//        }
+//    }
+
+    fun searchPlace(lat: Double, lng: Double): LiveData<List<Place>> {
+        repository.searchNearbyPlace(lat, lng)
+        return repository.getPlaces()
     }
 }

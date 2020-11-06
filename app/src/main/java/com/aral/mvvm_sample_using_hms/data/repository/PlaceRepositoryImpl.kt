@@ -13,17 +13,17 @@ import com.huawei.hms.site.api.model.Site
 
 class PlaceRepositoryImpl : PlaceRepository {
     private val siteKitClient = SiteKitClient()
-    private val places: MutableList<Place> = mutableListOf(Place())
+    private val places: MutableList<Place> = mutableListOf()
     private val placesLiveData = MutableLiveData<List<Place>>()
 
     private fun convertToPlace(site: Site) {
-        val place = Place()
-        place.siteId = site.getSiteId()
-        place.address = site.getFormatAddress()
-        place.addressDetail = site.getAddress()
-        place.location = site.getLocation()
-        place.name = site.getName()
-
+        val place = Place(
+            site.getSiteId(),
+            site.getName(),
+            site.getFormatAddress(),
+            site.getAddress(),
+            site.getLocation()
+        )
         places.add(place)
         placesLiveData.value = places
     }
